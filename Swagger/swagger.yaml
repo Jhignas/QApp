@@ -1,0 +1,106 @@
+swagger: "2.0"
+
+info:
+  description: "This is the contract for the bootcamp project - QA Portal."
+  version: "1.0.0"
+  title: "QA PORTAL"
+
+# host: ""
+
+basePath: "/qaportal"
+
+schemes:
+- "http"
+
+tags:
+- name: "questions"
+  description: "All the question you had/have/will have"
+
+paths:
+  /questions:
+    post:
+      tags:
+      - "questions"
+      summary: "Add a new question to the bank"
+      description: "You will add a question and mention its related tags "
+      operationId: "addQuestion"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "question"
+        description: "Question object that needs to be added to the bank"
+        schema:
+          type: object
+          required:
+          - question_text
+          properties:
+            question_text:
+              type: string
+            question_tags:
+              type: string
+      responses:
+        201:
+          description: "Question Asked"
+        405:
+          description: "Invalid Format"
+    get:
+      tags: 
+      - "questions"
+      summary: "gives a list of all questions asked in the community"
+      description: "You'll be able to surf through the questions and look for the one that interests you"
+      operationId: "viewQuestions"
+      
+      produces: 
+      - application/json
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Question"
+              
+  /questions/{q_id}:
+    get:
+      summary: get a particular question by it's ID
+      description: Once a user decides which question to view, they select it.
+      operationId: getQuestion
+      tags: 
+      - "questions"
+      produces: 
+      - application/json
+      parameters: 
+      - name: q_id
+        in: path
+        description: Question ID
+        type: integer
+        required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Answer"
+    
+
+definitions:
+  Question:
+    type: "object"
+    properties:
+      questionId:
+        type: "integer"
+      questionText:
+        type: "string"
+      questionTags:
+        type: "string"
+  Answer:
+    type: "object"
+    properties:
+      answerId:
+        type: "integer"
+      answerText:
+        type: "string"
+      
