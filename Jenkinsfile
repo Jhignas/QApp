@@ -1,14 +1,6 @@
 pipeline{
 	agent any
 
-	environment{
-		img = ''
-	}
-
-	triggers{
-		pollSCM '* * * * *'
-	}
-
 	stages{
 
 		// stage('check'){
@@ -25,17 +17,14 @@ pipeline{
 			}
 		}
 
-		stage('Build Docker Image'){
+		stage('Build and Push Docker Image'){
 			steps{
-				img = docker.build("jhignas/qapp_spring:toDocker","-f Dockerfile_SpringApplication ./Docker")
-			}
-		}
-
-		stage('Push Docker Image'){
-			steps{
-				docker.withRegistry('https://hub.docker.com/r/jhignas/qapp_spring/','Docker-Hub-Credentials'){
-					img.push("toDocker")
-				}
+				script{
+					def img = docker.build("jhignas/qapp_spring:toDocker","-f Dockerfile_SpringApplication ./Docker")
+					docker.withRegistry('https://hub.docker.com/r/jhignas/qapp_spring/','Docker-Hub-Credentials'){
+						img.push("toDocker")
+					}
+				}				
 			}
 		}
 
