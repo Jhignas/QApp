@@ -20,7 +20,7 @@ pipeline{
 		stage('Build and Push Docker Image'){
 			steps{
 				script{
-					def img = docker.build("jhignas/qapp_spring:toDocker","-f Dockerfile_SpringApplication ./Docker")
+					def img = docker.build("jhignas/qapp_spring:toDocker","-f /Docker/Dockerfile_SpringApplication")
 					docker.withRegistry('https://hub.docker.com/r/jhignas/qapp_spring/','Docker-Hub-Credentials'){
 						img.push("toDocker")
 					}
