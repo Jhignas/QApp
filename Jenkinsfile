@@ -1,8 +1,6 @@
 pipeline{
 	agent any
 
-	def img
-
 	triggers{
 		pollSCM '* * * * *'
 	}
@@ -16,6 +14,8 @@ pipeline{
 		// 		sh "gradle"
 		// 	}
 		// }
+
+		def img
 
 		stage('Build JAR'){
 			steps{
