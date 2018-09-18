@@ -1,0 +1,9 @@
+FROM openjdk
+COPY /build/libs/QApp-1.0.jar /usr/src/QApp/
+WORKDIR /usr/src/QApp
+EXPOSE 9000
+ENTRYPOINT ["java","-jar"]
+CMD ["QApp-1.0.jar"]
+
+#docker build --rm -t jhignas/qapp_spring -f Docker/Dockerfile_SpringApplication .
+#docker run --name qapp -p 9000:9000 jhignas/qapp_spring

@@ -31,3 +31,36 @@ dependencies {
 	runtime('org.postgresql:postgresql')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+task createImage(dependsOn: 'bootJar'){
+	group 'Docker'
+	description 'Creates application\'s Docker Image using JAR file'
+
+	doLast{
+		exec {
+            commandLine('docker','build','-t','jhignas/qapp_spring:toDocker','-f','Docker/Dockerfile_SpringApplication','.')
+        }
+	}	
+}
+
+task startQApp(dependsOn: 'bootJar'){
+	group 'QApp'
+	description 'starts the QApp spring application along with database as docker containers'
+
+	doLast{
+		exec {
+            commandLine('docker-compose','up')
+        }
+	}	
+}
+
+task stopQApp(dependsOn: 'startQApp'){
+	group 'QApp'
+	description 'stops the previously spawned docker container of the QApp spring application and database'
+
+	doLast{
+		exec {
+            commandLine('docker-compose' , 'down')
+        }
+	}
+}

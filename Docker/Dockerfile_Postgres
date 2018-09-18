@@ -1,0 +1,10 @@
+#Dockerfile for Postgres server
+FROM postgres
+EXPOSE 5432
+ENV POSTGRES_PASSWORD=qapp
+ENV POSTGRES_USER=qapp
+ENV POSTGRES_DB=qapp_db
+
+#docker build -t jhignas/qapp_postgres -f Docker/Dockerfile_Postgres .
+
+# docker run --name postgres_container -e POSTGRES_PASSWORD=qapp -e POSTGRES_USER=qapp -e POSTGRES_DB=qapp_db -p 6000:5432 -d postgres
