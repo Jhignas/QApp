@@ -10,6 +10,8 @@ pipeline{
 		stage('check'){
 			steps{
 				sh "pwd"
+				sh "whoami"
+				sh "gradle"
 			}
 		}
 
