@@ -7,6 +7,12 @@ pipeline{
 
 	stages{
 
+		stage('check'){
+			steps{
+				sh "pwd"
+			}
+		}
+
 		stage('Build JAR'){
 			steps{
 				sh "./gradlew bootJar"
